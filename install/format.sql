@@ -1,16 +1,16 @@
 --- paste.sql
 
-CREATE TABLE formats (
-    format_id serial PRIMARY KEY,
-    user_id integer REFERENCES users(user_id) ON DELETE CASCADE,
-    title varchar (64), 
-    code text,
-    created timestamp with time zone
+CREATE TABLE formats ( ---создает таблицу formats
+    format_id serial PRIMARY KEY, ---autoincrementing integer
+    user_id integer REFERENCES users(user_id) ON DELETE CASCADE, --является копией колонки в users
+    title varchar (64), --название, не более 64 символов
+    code text, --хранилище для какого-то кода. текст
+    created timestamp with time zone -- время создания. с учетом часового пояса.
 );
 
-ALTER TABLE formats OWNER TO lisp;
-
-CREATE TRIGGER formats_insert_trigger
+ALTER TABLE formats OWNER TO lisp; --смена полльзователя
+---дальше - хз
+CREATE TRIGGER formats_insert_trigger 
     BEFORE INSERT ON formats
     FOR EACH ROW
     EXECUTE PROCEDURE rlf_created_fix();
